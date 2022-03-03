@@ -20,7 +20,19 @@ struct EmojiArtDocumentView: View {
     }
     
     var documentBody: some View {
-        Color.yellow
+        GeometryReader { geometry in
+            ZStack {
+                Color.yellow
+                ForEach(document.emojis) { emoji in
+                    Text(emoji.text)
+                        .font(.system(size: fontSize(for: emoji)))
+                        .position(position(for: emoji, in: geometry))
+                }
+            }
+            .onDrop(of: [.plainText], isTargeted: nil) { providers, location in
+                drop(providers: providers, at: location, in: geometry)
+            }
+        }
     }
     
     var palette: some View {
@@ -29,6 +41,40 @@ struct EmojiArtDocumentView: View {
     }
     
     let testEmojis = "😀😅😒😏😫😣☹️🙁😡🤬🥵🥶😱😨😴"
+    
+    private func fontSize(for emoji: EmojiArtModel.Emoji) -> CGFloat {
+        CGFloat(emoji.size)
+    }
+    
+    private func position(for emoji: EmojiArtModel.Emoji, in geometry: GeometryProxy) -> CGPoint {
+        convertFromEmojiCoordinates((emoji.x, emoji.y), in: geometry)
+    }
+    
+    private func convertFromEmojiCoordinates(_ location: (x: Int, y: Int), in geometry: GeometryProxy) -> CGPoint {
+        let center = geometry.frame(in: .local).center
+        return CGPoint(x: center.x + CGFloat(location.x), y: center.y + CGFloat(location.y))
+    }
+    
+    private func convertToEmojiCoordinates(_ location: CGPoint, in geometry: GeometryProxy) -> (x: Int, y: Int) {
+        let center = geometry.frame(in: .local).center
+        return (Int(location.x - center.x), Int(location.y - center.y))
+        
+    }
+    
+    private func drop(providers: [NSItemProvider], at location: CGPoint, in geometry: GeometryProxy) -> Bool {
+        providers.loadObjects(ofType: String.self) { text in
+            if let emoji = text.first, emoji.isEmoji {
+                document.addEmoji(
+                    String(emoji),
+                    at: convertToEmojiCoordinates(location, in: geometry),
+                    size: defaultEmojiFontSize
+                )
+            }
+        }
+    }
+//    struct Constants {
+//        static let defaultFontSize: CGFloat = 20
+//    }
 }
 
 struct ScrollingEmojisView: View {
@@ -39,6 +85,9 @@ struct ScrollingEmojisView: View {
             HStack {
                 ForEach(emojis.map { String($0) }, id: \.self) { emoji in
                     Text(emoji)
+                        .onDrag {
+                            NSItemProvider(object: emoji as NSString)
+                        }
                 }
             }
         }

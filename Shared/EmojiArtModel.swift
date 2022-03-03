@@ -16,15 +16,18 @@ struct EmojiArtModel {
     
     init() { }
     
-    mutating func addEmoji(_ text: String, location: (x: Int, y: Int), size: Int) {
+    mutating func addEmoji(_ text: String, at location: (x: Int, y: Int), size: Int) {
+        for ch in text {
+            assert(ch.isEmoji)
+        }
         uniqueEmojiId += 1
         emojis.append(Emoji(text: text, x: location.x, y: location.y, size: size, id: uniqueEmojiId))
     }
 
     struct Emoji: Identifiable, Hashable {
         let text: String
-        var x: Int
-        var y: Int
+        var x: Int   // offset from the center
+        var y: Int   // offset from the center
         var size: Int
         let id: Int
         
