@@ -8,7 +8,21 @@
 import SwiftUI
 
 class EmojiArtDocument: ObservableObject {
-    @Published private(set) var emojiArt: EmojiArtModel
+    @Published private(set) var emojiArt: EmojiArtModel {
+        didSet {
+            if emojiArt.background != oldValue.background {
+                fetchBackgroundImageDataIfNecessary()
+            }
+        }
+    }
+    
+    @Published private(set) var backgroundImage: UIImage?
+    @Published private(set) var backgroundImageFetchingStatus = BackgroundImageFetchingStatus.idle
+    
+    enum BackgroundImageFetchingStatus {
+        case idle
+        case fetching
+    }
     
     init() {
         emojiArt = EmojiArtModel()
@@ -16,12 +30,30 @@ class EmojiArtDocument: ObservableObject {
         emojiArt.addEmoji("🥶", at: (100, 50), size: 20)
     }
     
-    var background: EmojiArtModel.Background {
-        emojiArt.background
-    }
+    var background: EmojiArtModel.Background { emojiArt.background }
+    var emojis: [EmojiArtModel.Emoji] { emojiArt.emojis }
     
-    var emojis: [EmojiArtModel.Emoji] {
-        emojiArt.emojis
+    private func fetchBackgroundImageDataIfNecessary() {
+        backgroundImage = nil
+        switch emojiArt.background {
+        case .url(let url):
+            backgroundImageFetchingStatus = .fetching
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                let imageData = try? Data(contentsOf: url)
+                if imageData != nil  {
+                    DispatchQueue.main.async { [weak self] in
+                        self?.backgroundImageFetchingStatus = .idle
+                        if self?.emojiArt.background == EmojiArtModel.Background.url(url) {
+                            self?.backgroundImage = UIImage(data: imageData!)
+                        }
+                    }
+                }
+            }
+        case .imageData(let data):
+            backgroundImage = UIImage(data: data)
+        default:
+            break
+        }
     }
     
     // MARK: - Intent(s)
