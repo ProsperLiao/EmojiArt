@@ -10,7 +10,15 @@ import SwiftUI
 struct EmojiArtDocumentView: View {
     @ObservedObject var document: EmojiArtDocument
     
+    @State private var steadyStateZoomScale: CGFloat = 1
+    
+    @GestureState private var gestureZoomScale: CGFloat = 1
+    
     let defaultEmojiFontSize: CGFloat = 40
+    
+    private var zoomScale: CGFloat {
+        steadyStateZoomScale * gestureZoomScale
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -23,21 +31,27 @@ struct EmojiArtDocumentView: View {
         GeometryReader { geometry in
             ZStack {
                 Color.white.overlay(
-                    OptionalImage(uiImage: document.backgroundImage).position(convertFromEmojiCoordinates((0, 0), in: geometry))
+                    OptionalImage(uiImage: document.backgroundImage)
+                        .scaleEffect(zoomScale)
+                        .position(convertFromEmojiCoordinates((0, 0), in: geometry))
                 )
+                    .gesture(doubleTapToZoom(in: geometry.size))
                 if document.backgroundImageFetchingStatus == .fetching {
                     ProgressView().scaleEffect(2)
                 } else {
                     ForEach(document.emojis) { emoji in
                         Text(emoji.text)
                             .font(.system(size: fontSize(for: emoji)))
+                            .scaleEffect(zoomScale)
                             .position(position(for: emoji, in: geometry))
                     }
                 }
             }
+            .clipped()
             .onDrop(of: [.plainText, .url, .image], isTargeted: nil) { providers, location in
                 drop(providers: providers, at: location, in: geometry)
             }
+            .gesture(zoomGesture())
         }
     }
     
@@ -58,12 +72,19 @@ struct EmojiArtDocumentView: View {
     
     private func convertFromEmojiCoordinates(_ location: (x: Int, y: Int), in geometry: GeometryProxy) -> CGPoint {
         let center = geometry.frame(in: .local).center
-        return CGPoint(x: center.x + CGFloat(location.x), y: center.y + CGFloat(location.y))
+        return CGPoint(
+            x: center.x + CGFloat(location.x) * zoomScale,
+            y: center.y + CGFloat(location.y) * zoomScale
+        )
     }
     
     private func convertToEmojiCoordinates(_ location: CGPoint, in geometry: GeometryProxy) -> (x: Int, y: Int) {
         let center = geometry.frame(in: .local).center
-        return (Int(location.x - center.x), Int(location.y - center.y))
+        let location = CGPoint(
+            x: (location.x - center.x) / zoomScale,
+            y: (location.y - center.y) / zoomScale
+        )
+        return (Int(location.x), Int(location.y))
         
     }
     
@@ -84,7 +105,7 @@ struct EmojiArtDocumentView: View {
                     document.addEmoji(
                         String(emoji),
                         at: convertToEmojiCoordinates(location, in: geometry),
-                        size: defaultEmojiFontSize
+                        size: defaultEmojiFontSize / zoomScale
                     )
                 }
             }
@@ -92,6 +113,34 @@ struct EmojiArtDocumentView: View {
         
         return found
     }
+    
+    private func zoomToFit(_ image: UIImage?, in size: CGSize) {
+        if let image = image, image.size.width > 0, image.size.height > 0, size.width > 0, size.height > 0 {
+            let hZoom = size.width / image.size.width
+            let vZoom = size.height / image.size.height
+            steadyStateZoomScale = min(hZoom, vZoom)
+        }
+    }
+    
+    private func doubleTapToZoom(in size: CGSize) -> some Gesture {
+        TapGesture(count: 2)
+            .onEnded {
+                withAnimation {
+                    zoomToFit(document.backgroundImage, in: size)
+                }
+            }
+    }
+    
+    private func zoomGesture() -> some Gesture {
+        MagnificationGesture()
+            .updating($gestureZoomScale) { scale, gestureZoomScale, transaction in
+                gestureZoomScale = scale
+            }
+            .onEnded { gestureScaleAtEnd in
+                steadyStateZoomScale *= gestureScaleAtEnd
+            }
+    }
+    
 //    struct Constants {
 //        static let defaultFontSize: CGFloat = 20
 //    }
