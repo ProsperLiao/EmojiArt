@@ -11,14 +11,20 @@ struct EmojiArtDocumentView: View {
     @ObservedObject var document: EmojiArtDocument
     
     @State private var steadyStateZoomScale: CGFloat = 1
-    
     @GestureState private var gestureZoomScale: CGFloat = 1
-    
-    let defaultEmojiFontSize: CGFloat = 40
     
     private var zoomScale: CGFloat {
         steadyStateZoomScale * gestureZoomScale
     }
+    
+    @State private var steadyStatePanOffset: CGSize = CGSize(width: 0, height: 0)
+    @GestureState private var gesturePanOffset: CGSize = CGSize(width: 0, height: 0)
+    
+    private var panOffset: CGSize {
+        (steadyStatePanOffset + gesturePanOffset) * zoomScale
+    }
+    
+    let defaultEmojiFontSize: CGFloat = 40
     
     var body: some View {
         VStack(spacing: 0) {
@@ -51,7 +57,7 @@ struct EmojiArtDocumentView: View {
             .onDrop(of: [.plainText, .url, .image], isTargeted: nil) { providers, location in
                 drop(providers: providers, at: location, in: geometry)
             }
-            .gesture(zoomGesture())
+            .gesture(panGesture().simultaneously(with: zoomGesture()))
         }
     }
     
@@ -70,19 +76,21 @@ struct EmojiArtDocumentView: View {
         convertFromEmojiCoordinates((emoji.x, emoji.y), in: geometry)
     }
     
+    // emoji 坐标系原点在画图区的中点，需把emoji坐标系的位置转换为系统的坐标系的位置
     private func convertFromEmojiCoordinates(_ location: (x: Int, y: Int), in geometry: GeometryProxy) -> CGPoint {
         let center = geometry.frame(in: .local).center
         return CGPoint(
-            x: center.x + CGFloat(location.x) * zoomScale,
-            y: center.y + CGFloat(location.y) * zoomScale
+            x: center.x + CGFloat(location.x) * zoomScale + panOffset.width,
+            y: center.y + CGFloat(location.y) * zoomScale + panOffset.height
         )
     }
     
+    // 把系统坐标系的点转换为 emoji 坐标系的位置
     private func convertToEmojiCoordinates(_ location: CGPoint, in geometry: GeometryProxy) -> (x: Int, y: Int) {
         let center = geometry.frame(in: .local).center
         let location = CGPoint(
-            x: (location.x - center.x) / zoomScale,
-            y: (location.y - center.y) / zoomScale
+            x: (location.x - panOffset.width - center.x) / zoomScale,
+            y: (location.y - panOffset.height - center.y) / zoomScale
         )
         return (Int(location.x), Int(location.y))
         
@@ -118,6 +126,7 @@ struct EmojiArtDocumentView: View {
         if let image = image, image.size.width > 0, image.size.height > 0, size.width > 0, size.height > 0 {
             let hZoom = size.width / image.size.width
             let vZoom = size.height / image.size.height
+            steadyStatePanOffset = .zero
             steadyStateZoomScale = min(hZoom, vZoom)
         }
     }
@@ -133,11 +142,21 @@ struct EmojiArtDocumentView: View {
     
     private func zoomGesture() -> some Gesture {
         MagnificationGesture()
-            .updating($gestureZoomScale) { scale, gestureZoomScale, transaction in
+            .updating($gestureZoomScale) { scale, gestureZoomScale, _ in
                 gestureZoomScale = scale
             }
             .onEnded { gestureScaleAtEnd in
                 steadyStateZoomScale *= gestureScaleAtEnd
+            }
+    }
+    
+    private func panGesture() -> some Gesture {
+        DragGesture()
+            .updating($gesturePanOffset, body: { latestDragGestureValue, gesturePanOffset, _ in
+                gesturePanOffset = latestDragGestureValue.translation / zoomScale
+            })
+            .onEnded { finalDragGestureValue in
+                steadyStatePanOffset = steadyStatePanOffset + (finalDragGestureValue.translation / zoomScale)
             }
     }
     
