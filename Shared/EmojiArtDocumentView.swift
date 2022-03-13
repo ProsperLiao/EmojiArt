@@ -30,6 +30,7 @@ struct EmojiArtDocumentView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            deleteZone
             documentBody
             palette
         }
@@ -68,6 +69,24 @@ struct EmojiArtDocumentView: View {
     var palette: some View {
         ScrollingEmojisView(emojis: testEmojis)
             .font(.system(size: defaultEmojiFontSize))
+    }
+    
+    var deleteZone: some View {
+        HStack {
+            Spacer()
+            Button {
+                for emoji in selectedEmojis {
+                    document.removeEmoji(emoji)
+                }
+            } label: {
+                Image(systemName: "trash")
+                    .font(.system(size: 40))
+            }
+            .tint(.red)
+            .disabled(selectedEmojis.isEmpty)
+            Spacer()
+        }
+        .padding()
     }
     
     let testEmojis = "😀😅😒😏😫😣☹️🙁😡🤬🥵🥶😱😨😴"
