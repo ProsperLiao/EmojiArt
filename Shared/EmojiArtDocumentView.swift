@@ -18,10 +18,10 @@ struct EmojiArtDocumentView: View {
     }
     
     @State private var steadyStatePanOffset: CGSize = CGSize(width: 0, height: 0)
-    @GestureState private var gesturePanOffset: (document: CGSize, selectedEmojis: CGSize) =  (CGSize(width: 0, height: 0), CGSize(width: 0, height: 0))
+    @GestureState private var gesturePanOffset: (documentOffset: CGSize, selectedEmojisOffset: CGSize, unselectedMovingEmoji: (emoji: EmojiArtModel.Emoji, offset: CGSize)?) =  (CGSize(width: 0, height: 0), CGSize(width: 0, height: 0), nil)
     
     private var panOffset: CGSize {
-        (steadyStatePanOffset + gesturePanOffset.document) * zoomScale
+        (steadyStatePanOffset + gesturePanOffset.documentOffset) * zoomScale
     }
     
     @State private var selectedEmojis = Set<EmojiArtModel.Emoji>()
@@ -30,7 +30,7 @@ struct EmojiArtDocumentView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            deleteZone
+            deleteZone.zIndex(1)
             documentBody
             palette
         }
@@ -51,8 +51,7 @@ struct EmojiArtDocumentView: View {
                     ForEach(document.emojis) { emoji in
                         Text(emoji.text)
                             .border(selectedEmojis.index(matching: emoji) != nil ? Color.red : Color.clear)
-                            .font(.system(size: fontSize(for: emoji)))
-                            .scaleEffect(zoomScale)
+                            .animatableSystemFontModifier(size: (fontSize(for: emoji) * zoomScale).rounded(.toNearestOrAwayFromZero) )
                             .position(position(for: emoji, in: geometry))
                             .gesture(singleTap(emoji).simultaneously(with: emojiDragGesture(emoji)))
                     }
@@ -74,14 +73,12 @@ struct EmojiArtDocumentView: View {
     var deleteZone: some View {
         HStack {
             Spacer()
-            Button {
+            AnimatedActionButton(systemImage: "trash") {
                 for emoji in selectedEmojis {
                     document.removeEmoji(emoji)
                 }
-            } label: {
-                Image(systemName: "trash")
-                    .font(.system(size: 40))
             }
+            .font(.system(size: 40))
             .tint(.red)
             .disabled(selectedEmojis.isEmpty)
             Spacer()
@@ -102,7 +99,9 @@ struct EmojiArtDocumentView: View {
     private func position(for emoji: EmojiArtModel.Emoji, in geometry: GeometryProxy) -> CGPoint {
         var location = convertFromEmojiCoordinates((emoji.x, emoji.y), in: geometry)
         if let _ = selectedEmojis.index(matching: emoji) {
-            location = convertFromEmojiCoordinates((emoji.x, emoji.y), in: geometry) + gesturePanOffset.selectedEmojis * zoomScale
+            location = convertFromEmojiCoordinates((emoji.x, emoji.y), in: geometry) + gesturePanOffset.selectedEmojisOffset * zoomScale
+        } else if let unselectedMovingEmoji = gesturePanOffset.unselectedMovingEmoji, unselectedMovingEmoji.emoji == emoji {
+            location = convertFromEmojiCoordinates((emoji.x, emoji.y), in: geometry) + unselectedMovingEmoji.offset * zoomScale
         }
         return location
         
@@ -195,11 +194,10 @@ struct EmojiArtDocumentView: View {
     private func panGesture() -> some Gesture {
         DragGesture()
             .updating($gesturePanOffset, body: { latestDragGestureValue, gesturePanOffset, _ in
-                gesturePanOffset.document = latestDragGestureValue.translation / zoomScale
+                gesturePanOffset.documentOffset = latestDragGestureValue.translation / zoomScale
             })
             .onEnded { finalDragGestureValue in
                 steadyStatePanOffset = steadyStatePanOffset + (finalDragGestureValue.translation / zoomScale)
-
             }
     }
     
@@ -207,9 +205,9 @@ struct EmojiArtDocumentView: View {
         DragGesture()
             .updating($gesturePanOffset, body: { latestDragGestureValue, gesturePanOffset, _ in
                 if let _ = selectedEmojis.index(matching: emoji) {
-                    gesturePanOffset.selectedEmojis = latestDragGestureValue.translation / zoomScale
+                    gesturePanOffset.selectedEmojisOffset = latestDragGestureValue.translation / zoomScale
                 } else {
-                    gesturePanOffset.document = latestDragGestureValue.translation / zoomScale
+                    gesturePanOffset.unselectedMovingEmoji = (emoji, latestDragGestureValue.translation / zoomScale)
                 }
             })
             .onEnded { finalDragGestureValue in
@@ -218,7 +216,7 @@ struct EmojiArtDocumentView: View {
                         document.moveEmoji(emoji, by: (finalDragGestureValue.translation / zoomScale))
                     }
                 } else {
-                    steadyStatePanOffset = steadyStatePanOffset + (finalDragGestureValue.translation / zoomScale)
+                    document.moveEmoji(emoji, by: (finalDragGestureValue.translation / zoomScale))
                 }
             }
     }

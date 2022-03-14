@@ -54,3 +54,22 @@ struct IdentifiableAlert: Identifiable {
     var alert: () -> Alert
 }
 
+
+struct AnimatableSystemFontModifier: Animatable, ViewModifier {
+    var size: CGFloat
+    
+    var animatableData: CGFloat {
+        get { size }
+        set { size = newValue}
+    }
+    
+    func body(content: Content) -> some View {
+        content.font(.system(size: size))
+    }
+}
+
+extension View {
+    func animatableSystemFontModifier(size: CGFloat) -> some View {
+        modifier(AnimatableSystemFontModifier(size: size))
+    }
+}
