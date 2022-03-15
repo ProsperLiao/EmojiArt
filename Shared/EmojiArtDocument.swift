@@ -10,6 +10,7 @@ import SwiftUI
 class EmojiArtDocument: ObservableObject {
     @Published private(set) var emojiArt: EmojiArtModel {
         didSet {
+            scheduleAutoSave()
             if emojiArt.background != oldValue.background {
                 fetchBackgroundImageDataIfNecessary()
             }
@@ -24,15 +25,59 @@ class EmojiArtDocument: ObservableObject {
         case fetching
     }
     
-    init() {
-        emojiArt = EmojiArtModel()
-        emojiArt.addEmoji("😎", at: (-200, -100), size: 40)
-        emojiArt.addEmoji("😎", at: (0, 0), size: 40)
-        emojiArt.addEmoji("🥶", at: (100, 50), size: 20)
-    }
-    
     var background: EmojiArtModel.Background { emojiArt.background }
     var emojis: [EmojiArtModel.Emoji] { emojiArt.emojis }
+    
+    init() {
+        if let url = AutoSave.url, let autosavedEmojiArt = try? EmojiArtModel(url: url) {
+            emojiArt = autosavedEmojiArt
+            fetchBackgroundImageDataIfNecessary()
+            
+        } else {
+            emojiArt = EmojiArtModel()
+            // emojiArt.addEmoji("😎", at: (-200, -100), size: 40)
+            // emojiArt.addEmoji("😎", at: (0, 0), size: 40)
+            // emojiArt.addEmoji("🥶", at: (100, 50), size: 20)
+        }
+    }
+    
+    private struct AutoSave {
+        static let filename = "Autosaved.emojiart"
+        static var url: URL? {
+            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            return documentDirectory?.appendingPathComponent(filename)
+        }
+        static let coalescingInterval = 5.0
+    }
+    
+    private func autoSave() {
+        if let url = AutoSave.url {
+            save(to: url)
+        }
+    }
+    
+    private var autosaveTimer: Timer?
+    
+    private func scheduleAutoSave() {
+        autosaveTimer?.invalidate()
+        autosaveTimer = Timer.scheduledTimer(withTimeInterval: AutoSave.coalescingInterval, repeats: false) {_ in
+            self.autoSave()
+        }
+    }
+    
+    private func save(to url: URL) {
+        let thisFunction = "\(String(describing: self)).\(#function)"
+        do {
+            let data = try emojiArt.json()
+            print("\(thisFunction) json = \(String(data: data, encoding: .utf8) ?? "nil")")
+            try data.write(to: url)
+            print("\(thisFunction) success!")
+        } catch let encodingError where encodingError is EncodingError {
+            print("\(thisFunction) couldn't encode EmojiArt as JSON because \(encodingError.localizedDescription)")
+        } catch {
+            print("\(thisFunction) fail. error = \(error.localizedDescription)")
+        }
+    }
     
     private func fetchBackgroundImageDataIfNecessary() {
         backgroundImage = nil
