@@ -20,9 +20,10 @@ class EmojiArtDocument: ObservableObject {
     @Published private(set) var backgroundImage: UIImage?
     @Published private(set) var backgroundImageFetchingStatus = BackgroundImageFetchingStatus.idle
     
-    enum BackgroundImageFetchingStatus {
+    enum BackgroundImageFetchingStatus: Equatable {
         case idle
         case fetching
+        case fail(URL)
     }
     
     var background: EmojiArtModel.Background { emojiArt.background }
@@ -32,7 +33,7 @@ class EmojiArtDocument: ObservableObject {
         if let url = AutoSave.url, let autosavedEmojiArt = try? EmojiArtModel(url: url) {
             emojiArt = autosavedEmojiArt
             fetchBackgroundImageDataIfNecessary()
-            
+             
         } else {
             emojiArt = EmojiArtModel()
             // emojiArt.addEmoji("😎", at: (-200, -100), size: 40)
@@ -86,11 +87,14 @@ class EmojiArtDocument: ObservableObject {
             backgroundImageFetchingStatus = .fetching
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 let imageData = try? Data(contentsOf: url)
-                if imageData != nil  {
-                    DispatchQueue.main.async { [weak self] in
+                DispatchQueue.main.async { [weak self] in
+                    if self?.emojiArt.background == EmojiArtModel.Background.url(url) {
                         self?.backgroundImageFetchingStatus = .idle
-                        if self?.emojiArt.background == EmojiArtModel.Background.url(url) {
+                        if imageData != nil  {
                             self?.backgroundImage = UIImage(data: imageData!)
+                        }
+                        if self?.backgroundImage == nil {
+                            self?.backgroundImageFetchingStatus = .fail(url)
                         }
                     }
                 }

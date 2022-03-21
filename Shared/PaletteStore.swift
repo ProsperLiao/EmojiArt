@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct Palette: Identifiable, Codable {
-    let name: String
-    let emojis: String
-    let id: Int
+struct Palette: Identifiable, Codable, Hashable {
+    var name: String
+    var emojis: String
+    var id: Int
     
     fileprivate init(name: String, emojis: String, id: Int) {
         self.name = name
