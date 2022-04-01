@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 struct EmojiArtModel: Codable {
     var background = Background.blank

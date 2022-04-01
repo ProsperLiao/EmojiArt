@@ -73,3 +73,62 @@ extension View {
         modifier(AnimatableSystemFontModifier(size: size))
     }
 }
+
+
+// undo 和 redo 按钮
+struct UndoButton: View {
+    let undo: String?
+    let redo: String?
+    
+    @Environment(\.undoManager) var undoManager
+    
+    var body: some View {
+        let canUndo = undoManager?.canUndo ?? false
+        let canRedo = undoManager?.canRedo ?? false
+        
+        if canUndo || canRedo {
+            HStack {
+                Button {
+                    undoManager?.undo()
+                } label: {
+                    Image(systemName: "arrow.uturn.backward.circle")
+                }
+                .disabled(!canUndo)
+                Button {
+                    undoManager?.redo()
+                } label: {
+                    Image(systemName: "arrow.uturn.forward.circle")
+                }
+                .disabled(!canRedo)
+            }
+            .contextMenu {
+                if UIDevice.current.userInterfaceIdiom == .mac {
+                    if canUndo {
+                        Button {
+                            undoManager?.undo()
+                        } label: {
+                            Label(undo ?? "Undo", systemImage: "arrow.uturn.backward")
+                        }
+                    }
+                    if canRedo {
+                        Button {
+                            undoManager?.redo()
+                        } label: {
+                            Label(redo ?? "Redo", systemImage: "arrow.uturn.forward")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+extension UndoManager {
+    var optionalUndoMenuItemTitle: String? {
+        canUndo ? undoMenuItemTitle : nil
+    }
+    
+    var optionalRedoMenuItemTitle: String? {
+        canRedo ? redoMenuItemTitle : nil
+    }
+}

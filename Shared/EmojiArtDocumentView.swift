@@ -10,14 +10,18 @@ import SwiftUI
 struct EmojiArtDocumentView: View {
     @ObservedObject var document: EmojiArtDocument
     
-    @State private var steadyStateZoomScale: CGFloat = 1
+    @Environment(\.undoManager) var undoManager
+    
+    @SceneStorage("EmojiArtDocumentView.steadyStateZoomScale")
+    private var steadyStateZoomScale: CGFloat = 1
     @GestureState private var gestureZoomScale: (document: CGFloat, selectedEmojis: CGFloat) = (1, 1)
     
     private var zoomScale: CGFloat {
         steadyStateZoomScale * gestureZoomScale.document
     }
     
-    @State private var steadyStatePanOffset: CGSize = CGSize(width: 0, height: 0)
+    @SceneStorage("EmojiArtDocumentView.steadyStatePanOffset")
+    private var steadyStatePanOffset: CGSize = CGSize(width: 0, height: 0)
     @GestureState private var gesturePanOffset: (documentOffset: CGSize, selectedEmojisOffset: CGSize, unselectedMovingEmoji: (emoji: EmojiArtModel.Emoji, offset: CGSize)?) =  (CGSize(width: 0, height: 0), CGSize(width: 0, height: 0), nil)
     
     private var panOffset: CGSize {
@@ -26,11 +30,10 @@ struct EmojiArtDocumentView: View {
     
     @State private var selectedEmojis = Set<EmojiArtModel.Emoji>()
     
-    let defaultEmojiFontSize: CGFloat = 40
+    @ScaledMetric var defaultEmojiFontSize: CGFloat = 40
     
     var body: some View {
         VStack(spacing: 0) {
-            deleteZone.zIndex(1)
             documentBody
             PaletteChooser(emojiFontSize: defaultEmojiFontSize)
         }
@@ -73,8 +76,31 @@ struct EmojiArtDocumentView: View {
                     break
                 }
             }
+            .onReceive(document.$backgroundImage) { image in
+                if autoZoom {
+                    zoomToFit(image, in: geometry.size)
+                }
+            }
+            .toolbar {
+                UndoButton(
+                    undo: undoManager?.optionalUndoMenuItemTitle,
+                    redo: undoManager?.optionalRedoMenuItemTitle
+                )
+                .font(.system(size: 20))
+                
+                AnimatedActionButton(systemImage: "trash") {
+                    for emoji in selectedEmojis {
+                        document.removeEmoji(emoji, undoManager: undoManager)
+                    }
+                }
+                .font(.system(size: 20))
+                .tint(.red)
+                .disabled(selectedEmojis.isEmpty)
+            }
         }
     }
+    
+    @State var autoZoom = false
     
     @State private var alertToShow: IdentifiableAlert?
     
@@ -86,22 +112,6 @@ struct EmojiArtDocumentView: View {
                 dismissButton: .default(Text("OK"))
             )
         })
-    }
-    
-    var deleteZone: some View {
-        HStack {
-            Spacer()
-            AnimatedActionButton(systemImage: "trash") {
-                for emoji in selectedEmojis {
-                    document.removeEmoji(emoji)
-                }
-            }
-            .font(.system(size: 40))
-            .tint(.red)
-            .disabled(selectedEmojis.isEmpty)
-            Spacer()
-        }
-        .padding()
     }
     
     private func fontSize(for emoji: EmojiArtModel.Emoji) -> CGFloat {
@@ -145,12 +155,14 @@ struct EmojiArtDocumentView: View {
     
     private func drop(providers: [NSItemProvider], at location: CGPoint, in geometry: GeometryProxy) -> Bool {
         var found = providers.loadObjects(ofType: URL.self) { url in
-            document.setBackground(.url(url.imageURL))
+            autoZoom = true
+            document.setBackground(.url(url.imageURL), undoManager: undoManager)
         }
         if !found {
             found = providers.loadObjects(ofType: UIImage.self) { image in
                 if let data = image.jpegData(compressionQuality: 1.0) {
-                    document.setBackground(.imageData(data))
+                    autoZoom = true
+                    document.setBackground(.imageData(data), undoManager: undoManager)
                 }
             }
         }
@@ -160,7 +172,7 @@ struct EmojiArtDocumentView: View {
                     document.addEmoji(
                         String(emoji),
                         at: convertToEmojiCoordinates(location, in: geometry),
-                        size: defaultEmojiFontSize / zoomScale
+                        size: defaultEmojiFontSize / zoomScale, undoManager: undoManager
                     )
                 }
             }
@@ -201,7 +213,7 @@ struct EmojiArtDocumentView: View {
                     steadyStateZoomScale *= gestureScaleAtEnd
                 } else {
                     for emoji in selectedEmojis {
-                        document.scaleEmoji(emoji, by: gestureScaleAtEnd)
+                        document.scaleEmoji(emoji, by: gestureScaleAtEnd, undoManager: undoManager)
                     }
                 }
             }
@@ -224,15 +236,19 @@ struct EmojiArtDocumentView: View {
                     gesturePanOffset.selectedEmojisOffset = latestDragGestureValue.translation / zoomScale
                 } else {
                     gesturePanOffset.unselectedMovingEmoji = (emoji, latestDragGestureValue.translation / zoomScale)
+                    DispatchQueue.main.async {
+                        selectedEmojis = []
+                    }
                 }
             })
             .onEnded { finalDragGestureValue in
                 if let _ = selectedEmojis.index(matching: emoji) {
                     for emoji in selectedEmojis {
-                        document.moveEmoji(emoji, by: (finalDragGestureValue.translation / zoomScale))
+                        document.moveEmoji(emoji, by: (finalDragGestureValue.translation / zoomScale), undoManager: undoManager)
                     }
                 } else {
-                    document.moveEmoji(emoji, by: (finalDragGestureValue.translation / zoomScale))
+                    document.moveEmoji(emoji, by: (finalDragGestureValue.translation / zoomScale), undoManager: undoManager)
+                    selectedEmojis = []
                 }
             }
     }

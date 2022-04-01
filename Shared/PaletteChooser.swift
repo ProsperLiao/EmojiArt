@@ -13,9 +13,10 @@ struct PaletteChooser: View {
     
     @EnvironmentObject var store: PaletteStore
     
-    @State private var chosenPaletteIndex: Int = 0
+    @SceneStorage("PaletteChooser.chosenPaletteIndex")
+    private var chosenPaletteIndex: Int = 0
     
-    let defaultEmojiFontSize: CGFloat = 40
+    @ScaledMetric var defaultEmojiFontSize: CGFloat = 40
 
     @State private var isManaging = false
 //    @State private var isEditing = false

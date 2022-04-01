@@ -5,7 +5,7 @@
 //  Created by Hongxing Liao on 2022/3/16.
 //
 
-import SwiftUI
+import Foundation
 
 struct Palette: Identifiable, Codable, Hashable {
     var name: String
@@ -63,7 +63,7 @@ class PaletteStore: ObservableObject {
     
     // MARK: - Intent(s)
     func palette(at index: Int) -> Palette {
-        let safeIndex = min(palettes.count - 1, max(0, index))
+        let safeIndex = min(max(0, index), palettes.count - 1)
         return palettes[safeIndex]
     }
     
