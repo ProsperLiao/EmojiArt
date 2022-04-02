@@ -35,7 +35,7 @@
 
 /* Begin PBXFileReference section */
 		EE429E6727E47DD6001398D9 /* PaletteEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteEditor.swift; sourceTree = "<group>"; };
-		EE429E6A27E8213B001398D9 /* PaletteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PaletteManager.swift; path = Shared/PaletteManager.swift; sourceTree = "<group>"; };
+		EE429E6A27E8213B001398D9 /* PaletteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteManager.swift; sourceTree = "<group>"; };
 		EE704EBE27E18CAC0027BB2C /* PaletteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteStore.swift; sourceTree = "<group>"; };
 		EE704EC127E323990027BB2C /* PaletteChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteChooser.swift; sourceTree = "<group>"; };
 		EEB25F5327CCF8CF004A7639 /* EmojiArtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArtApp.swift; sourceTree = "<group>"; };
@@ -74,7 +74,6 @@
 			isa = PBXGroup;
 			children = (
 				EEBBCAAE27F2F735005801EA /* EmojiArt--iOS--Info.plist */,
-				EE429E6A27E8213B001398D9 /* PaletteManager.swift */,
 				EEB25F7B27CE14F3004A7639 /* Utility */,
 				EEB25F5227CCF8CF004A7639 /* Shared */,
 				EEB25F6127CCF8D2004A7639 /* macOS */,
@@ -85,6 +84,7 @@
 		EEB25F5227CCF8CF004A7639 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				EE429E6A27E8213B001398D9 /* PaletteManager.swift */,
 				EE704EC127E323990027BB2C /* PaletteChooser.swift */,
 				EE429E6727E47DD6001398D9 /* PaletteEditor.swift */,
 				EEB25F5327CCF8CF004A7639 /* EmojiArtApp.swift */,
