@@ -47,7 +47,7 @@ struct EmojiArtDocumentView: View {
                         .scaleEffect(zoomScale)
                         .position(convertFromEmojiCoordinates((0, 0), in: geometry))
                 )
-                    .gesture(doubleTapToZoom(in: geometry.size).exclusively(before: singleTap()))
+                .gesture(doubleTapToZoom(in: geometry.size).exclusively(before: singleTap()))
                 if document.backgroundImageFetchingStatus == .fetching {
                     ProgressView().scaleEffect(2)
                 } else {
@@ -81,21 +81,34 @@ struct EmojiArtDocumentView: View {
                     zoomToFit(image, in: geometry.size)
                 }
             }
-            .toolbar {
-                UndoButton(
-                    undo: undoManager?.optionalUndoMenuItemTitle,
-                    redo: undoManager?.optionalRedoMenuItemTitle
-                )
-                .font(.system(size: 20))
-                
-                AnimatedActionButton(systemImage: "trash") {
-                    for emoji in selectedEmojis {
-                        document.removeEmoji(emoji, undoManager: undoManager)
+            .compactableToolbar {
+                if let undoManager = undoManager {
+                    if undoManager.canUndo {
+                        AnimatedActionButton(title: undoManager.undoMenuItemTitle, systemImage: "arrow.uturn.backward.circle") {
+                            undoManager.undo()
+                        }
+                    }
+                    if undoManager.canRedo {
+                        AnimatedActionButton(title: undoManager.redoMenuItemTitle, systemImage: "arrow.uturn.forward.circle") {
+                            undoManager.redo()
+                        }
                     }
                 }
-                .font(.system(size: 20))
-                .tint(.red)
-                .disabled(selectedEmojis.isEmpty)
+                
+                if !selectedEmojis.isEmpty {
+                    AnimatedActionButton(title: "Delete Selected", systemImage: "trash") {
+                        for emoji in selectedEmojis {
+                            document.removeEmoji(emoji, undoManager: undoManager)
+                        }
+                        selectedEmojis = []
+                    }
+                    .font(.system(size: 20))
+                    .tint(.red)
+                }
+                
+                AnimatedActionButton(title: "Paste Background", systemImage: "doc.on.clipboard") {
+                    pasteBackground()
+                }
             }
         }
     }
@@ -262,6 +275,10 @@ struct EmojiArtDocumentView: View {
                     selectedEmojis = []
                 }
             }
+    }
+    
+    private func pasteBackground() {
+        
     }
     
 //    struct Constants {

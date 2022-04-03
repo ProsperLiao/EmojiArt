@@ -31,6 +31,8 @@
 		EEB25F7E27CE1523004A7639 /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB25F7C27CE1522004A7639 /* UtilityExtensions.swift */; };
 		EEB25F8027CE1534004A7639 /* UtilityViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB25F7F27CE1534004A7639 /* UtilityViews.swift */; };
 		EEB25F8127CE1534004A7639 /* UtilityViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB25F7F27CE1534004A7639 /* UtilityViews.swift */; };
+		EEBBCAB027F88CC7005801EA /* CompactableIntoMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBBCAAF27F88CC7005801EA /* CompactableIntoMenu.swift */; };
+		EEBBCAB127F88CC7005801EA /* CompactableIntoMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBBCAAF27F88CC7005801EA /* CompactableIntoMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,7 @@
 		EEB25F7C27CE1522004A7639 /* UtilityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityExtensions.swift; sourceTree = "<group>"; };
 		EEB25F7F27CE1534004A7639 /* UtilityViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityViews.swift; sourceTree = "<group>"; };
 		EEBBCAAE27F2F735005801EA /* EmojiArt--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "EmojiArt--iOS--Info.plist"; sourceTree = "<group>"; };
+		EEBBCAAF27F88CC7005801EA /* CompactableIntoMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactableIntoMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +123,7 @@
 			children = (
 				EEB25F7C27CE1522004A7639 /* UtilityExtensions.swift */,
 				EEB25F7F27CE1534004A7639 /* UtilityViews.swift */,
+				EEBBCAAF27F88CC7005801EA /* CompactableIntoMenu.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -222,6 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEBBCAB027F88CC7005801EA /* CompactableIntoMenu.swift in Sources */,
 				EEB25F8027CE1534004A7639 /* UtilityViews.swift in Sources */,
 				EE429E6B27E8213C001398D9 /* PaletteManager.swift in Sources */,
 				EE704EBF27E18CAC0027BB2C /* PaletteStore.swift in Sources */,
@@ -240,6 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEBBCAB127F88CC7005801EA /* CompactableIntoMenu.swift in Sources */,
 				EEB25F8127CE1534004A7639 /* UtilityViews.swift in Sources */,
 				EE429E6C27E8213C001398D9 /* PaletteManager.swift in Sources */,
 				EE704EC027E18CAC0027BB2C /* PaletteStore.swift in Sources */,
