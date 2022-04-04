@@ -32,6 +32,15 @@ struct EmojiArtDocumentView: View {
     
     @ScaledMetric var defaultEmojiFontSize: CGFloat = 40
     
+    @State private var backgroundPicker: BackgroundPickerType?
+    
+    enum BackgroundPickerType: Identifiable {
+        var id: BackgroundPickerType { self }
+        
+        case camera
+        case library
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             documentBody
@@ -107,6 +116,24 @@ struct EmojiArtDocumentView: View {
                 
                 AnimatedActionButton(title: "Paste Background", systemImage: "doc.on.clipboard") {
                     pasteBackground()
+                }
+                
+                if Camera.isAvailable {
+                    AnimatedActionButton(title: "Take Photo", systemImage: "camera") {
+                        backgroundPicker = .camera
+                    }
+                }
+                
+                if PhotoLibrary.isAvailable {
+                    AnimatedActionButton(title: "Search Photo", systemImage: "photo") {
+                        backgroundPicker = .library
+                    }
+                }
+            }
+            .sheet(item: $backgroundPicker) { pickerType in
+                switch pickerType {
+                case .camera: Camera { image in handlePickedBackgroundImage(image) }
+                case .library: PhotoLibrary { image in handlePickedBackgroundImage(image) }
                 }
             }
         }
@@ -289,6 +316,14 @@ struct EmojiArtDocumentView: View {
                 message: "There is no image currently on the pasteboard"
             )
         }
+    }
+    
+    private func handlePickedBackgroundImage(_ image: UIImage?) {
+        if let data = image?.jpegData(compressionQuality: 1.0) {
+            autoZoom = true
+            document.setBackground(.imageData(data), undoManager: undoManager)
+        }
+        backgroundPicker = nil
     }
     
 //    struct Constants {

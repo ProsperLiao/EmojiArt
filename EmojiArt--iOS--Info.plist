@@ -40,6 +40,10 @@
 	</array>
 	<key>UISupportsDocumentBrowser</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>The camera can be used to set the background of an EmojiArt document.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>The photo library can be used to set the background of an EmojiArt document.</string>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
