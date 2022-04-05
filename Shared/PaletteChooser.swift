@@ -37,6 +37,7 @@ struct PaletteChooser: View {
             chosenPaletteIndex = (chosenPaletteIndex + 1) % store.palettes.count
         }
         .font(emojiFont)
+        .paletteControlButtonStyle()
         .contextMenu { contextMenu }
     }
     
@@ -54,9 +55,11 @@ struct PaletteChooser: View {
         AnimatedActionButton(title: "Delete", systemImage: "minus.circle") {
             chosenPaletteIndex = store.removePalette(at: chosenPaletteIndex)
         }
+        #if os(iOS)
         AnimatedActionButton(title: "Manager", systemImage: "slider.vertical.3") {
             isManaging = true
         }
+        #endif
         gotoMenu
         
     }
@@ -88,6 +91,7 @@ struct PaletteChooser: View {
                 .wrappedInNavigationViewToMakeDismissable {
                     paletteToEdit = nil
                 }
+                .popoverPadding()
         }
         .sheet(isPresented: $isManaging) {
             PaletteManager()

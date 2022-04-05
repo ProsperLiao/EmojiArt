@@ -69,7 +69,7 @@ struct EmojiArtDocumentView: View {
                 }
             }
             .clipped()
-            .onDrop(of: [.plainText, .url, .image], isTargeted: nil) { providers, location in
+            .onDrop(of: [.utf8PlainText, .url, .image], isTargeted: nil) { providers, location in
                 drop(providers: providers, at: location, in: geometry)
             }
             .gesture(panGesture().simultaneously(with: zoomGesture()))
@@ -90,18 +90,20 @@ struct EmojiArtDocumentView: View {
                 }
             }
             .compactableToolbar {
+                #if os(iOS)
                 if let undoManager = undoManager {
                     if undoManager.canUndo {
-                        AnimatedActionButton(title: undoManager.undoMenuItemTitle, systemImage: "arrow.uturn.backward.circle") {
+                        AnimatedActionButton(title: undoManager.undoMenuItemTitle, systemImage: "arrow.uturn.backward") {
                             undoManager.undo()
                         }
                     }
                     if undoManager.canRedo {
-                        AnimatedActionButton(title: undoManager.redoMenuItemTitle, systemImage: "arrow.uturn.forward.circle") {
+                        AnimatedActionButton(title: undoManager.redoMenuItemTitle, systemImage: "arrow.uturn.forward") {
                             undoManager.redo()
                         }
                     }
                 }
+                #endif
                 
                 if !selectedEmojis.isEmpty {
                     AnimatedActionButton(title: "Delete Selected", systemImage: "trash") {
@@ -197,6 +199,7 @@ struct EmojiArtDocumentView: View {
             autoZoom = true
             document.setBackground(.url(url.imageURL), undoManager: undoManager)
         }
+        #if os(iOS)
         if !found {
             found = providers.loadObjects(ofType: UIImage.self) { image in
                 if let data = image.jpegData(compressionQuality: 1.0) {
@@ -205,6 +208,7 @@ struct EmojiArtDocumentView: View {
                 }
             }
         }
+        #endif
         if !found {
             found = providers.loadObjects(ofType: String.self) { text in
                 if let emoji = text.first, emoji.isEmoji {
@@ -304,10 +308,10 @@ struct EmojiArtDocumentView: View {
     }
     
     private func pasteBackground() {
-        if let imageData = UIPasteboard.general.image?.jpegData(compressionQuality: 1.0) {
+        if let imageData = PasteBoard.imageData {
             autoZoom = true
             document.setBackground(.imageData(imageData), undoManager: undoManager)
-        } else if let url = UIPasteboard.general.url?.imageURL {
+        } else if let url = PasteBoard.imageURL {
             autoZoom = true
             document.setBackground(.url(url), undoManager: undoManager)
         } else {
@@ -319,7 +323,7 @@ struct EmojiArtDocumentView: View {
     }
     
     private func handlePickedBackgroundImage(_ image: UIImage?) {
-        if let data = image?.jpegData(compressionQuality: 1.0) {
+        if let data = image?.imageData {
             autoZoom = true
             document.setBackground(.imageData(data), undoManager: undoManager)
         }

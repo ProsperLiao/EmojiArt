@@ -23,7 +23,7 @@ struct PaletteEditor: View {
     
     var nameSection: some View {
         Section {
-            TextField("Name", text: $palette.name)
+            TextField("", text: $palette.name)
         } header: {
             Text("Name")
         }

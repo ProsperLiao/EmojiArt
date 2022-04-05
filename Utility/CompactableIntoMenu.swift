@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct CompactableIntoMenu: ViewModifier {
+    #if os(iOS)
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var compact: Bool { horizontalSizeClass == .compact }
+    #else
+    let compact = false
+    #endif
     
     func body(content: Content) -> some View {
         if compact {
