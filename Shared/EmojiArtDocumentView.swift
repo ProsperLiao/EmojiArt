@@ -32,6 +32,9 @@ struct EmojiArtDocumentView: View {
     
     @ScaledMetric var defaultEmojiFontSize: CGFloat = 40
     
+    @State var showAlertFailtoExport = false
+    @State var showAlertSuccesstoExport = false
+    
     @State private var backgroundPicker: BackgroundPickerType?
     
     enum BackgroundPickerType: Identifiable {
@@ -130,6 +133,16 @@ struct EmojiArtDocumentView: View {
                     AnimatedActionButton(title: "Search Photo", systemImage: "photo") {
                         backgroundPicker = .library
                     }
+                    AnimatedActionButton(title: "Export Image to Photo Album", systemImage: "photo.on.rectangle.angled") {
+                        let image = documentBody.asUIImage(size: geometry.size)
+                        ImageSaver.shared.writeToPhotoAlbum(image: image) { error in
+                            if let _ = error {
+                                showAlertFailtoExport = true
+                            } else {
+                                showAlertSuccesstoExport = true
+                            }
+                        }
+                    }
                 }
             }
             .sheet(item: $backgroundPicker) { pickerType in
@@ -138,6 +151,16 @@ struct EmojiArtDocumentView: View {
                 case .library: PhotoLibrary { image in handlePickedBackgroundImage(image) }
                 }
             }
+            .alert(LocalizedStringKey("Failed to export photo"), isPresented: $showAlertFailtoExport, actions: {
+                Button(LocalizedStringKey("OK")) {
+                    showAlertFailtoExport = false
+                }
+            })
+            .alert(LocalizedStringKey("Success to export photo"), isPresented: $showAlertSuccesstoExport, actions: {
+                Button(LocalizedStringKey("OK")) {
+                    showAlertSuccesstoExport = false
+                }
+            })
         }
     }
     

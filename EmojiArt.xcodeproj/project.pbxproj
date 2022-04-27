@@ -18,6 +18,10 @@
 		EE704EC027E18CAC0027BB2C /* PaletteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE704EBE27E18CAC0027BB2C /* PaletteStore.swift */; };
 		EE704EC227E323990027BB2C /* PaletteChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE704EC127E323990027BB2C /* PaletteChooser.swift */; };
 		EE704EC327E323990027BB2C /* PaletteChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE704EC127E323990027BB2C /* PaletteChooser.swift */; };
+		EE85832428180BE5001812FF /* View+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85832328180BE5001812FF /* View+UIImage.swift */; };
+		EE85832528180BE5001812FF /* View+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85832328180BE5001812FF /* View+UIImage.swift */; };
+		EE8583272819A227001812FF /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8583262819A227001812FF /* ImageSaver.swift */; };
+		EE8583282819A227001812FF /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8583262819A227001812FF /* ImageSaver.swift */; };
 		EEB25F6327CCF8D2004A7639 /* EmojiArtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB25F5327CCF8CF004A7639 /* EmojiArtApp.swift */; };
 		EEB25F6427CCF8D2004A7639 /* EmojiArtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB25F5327CCF8CF004A7639 /* EmojiArtApp.swift */; };
 		EEB25F6527CCF8D2004A7639 /* EmojiArtDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB25F5427CCF8CF004A7639 /* EmojiArtDocumentView.swift */; };
@@ -36,6 +40,8 @@
 		EEB25F8127CE1534004A7639 /* UtilityViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB25F7F27CE1534004A7639 /* UtilityViews.swift */; };
 		EEBBCAB027F88CC7005801EA /* CompactableIntoMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBBCAAF27F88CC7005801EA /* CompactableIntoMenu.swift */; };
 		EEBBCAB127F88CC7005801EA /* CompactableIntoMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBBCAAF27F88CC7005801EA /* CompactableIntoMenu.swift */; };
+		EECE53B02807D616005D692B /* SwiftUIAnimationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECE53AF2807D616005D692B /* SwiftUIAnimationObserver.swift */; };
+		EECE53B12807D616005D692B /* SwiftUIAnimationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECE53AF2807D616005D692B /* SwiftUIAnimationObserver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +54,8 @@
 		EE429E6A27E8213B001398D9 /* PaletteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteManager.swift; sourceTree = "<group>"; };
 		EE704EBE27E18CAC0027BB2C /* PaletteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteStore.swift; sourceTree = "<group>"; };
 		EE704EC127E323990027BB2C /* PaletteChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteChooser.swift; sourceTree = "<group>"; };
+		EE85832328180BE5001812FF /* View+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+UIImage.swift"; sourceTree = "<group>"; };
+		EE8583262819A227001812FF /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		EEB25F5327CCF8CF004A7639 /* EmojiArtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArtApp.swift; sourceTree = "<group>"; };
 		EEB25F5427CCF8CF004A7639 /* EmojiArtDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArtDocumentView.swift; sourceTree = "<group>"; };
 		EEB25F5527CCF8D2004A7639 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,6 +69,7 @@
 		EEB25F7F27CE1534004A7639 /* UtilityViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityViews.swift; sourceTree = "<group>"; };
 		EEBBCAAE27F2F735005801EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEBBCAAF27F88CC7005801EA /* CompactableIntoMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactableIntoMenu.swift; sourceTree = "<group>"; };
+		EECE53AF2807D616005D692B /* SwiftUIAnimationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIAnimationObserver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +125,7 @@
 				EEB25F7727CDCCC6004A7639 /* EmojiArtDocument.swift */,
 				EE704EBE27E18CAC0027BB2C /* PaletteStore.swift */,
 				EEB25F5527CCF8D2004A7639 /* Assets.xcassets */,
+				EE8583262819A227001812FF /* ImageSaver.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -145,6 +155,8 @@
 				EEB25F7C27CE1522004A7639 /* UtilityExtensions.swift */,
 				EEB25F7F27CE1534004A7639 /* UtilityViews.swift */,
 				EEBBCAAF27F88CC7005801EA /* CompactableIntoMenu.swift */,
+				EECE53AF2807D616005D692B /* SwiftUIAnimationObserver.swift */,
+				EE85832328180BE5001812FF /* View+UIImage.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -247,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE85832428180BE5001812FF /* View+UIImage.swift in Sources */,
 				EEBBCAB027F88CC7005801EA /* CompactableIntoMenu.swift in Sources */,
 				EEB25F8027CE1534004A7639 /* UtilityViews.swift in Sources */,
 				EE429E6B27E8213C001398D9 /* PaletteManager.swift in Sources */,
@@ -259,6 +272,8 @@
 				EEB25F6327CCF8D2004A7639 /* EmojiArtApp.swift in Sources */,
 				EEB25F7D27CE1522004A7639 /* UtilityExtensions.swift in Sources */,
 				EEB25F7827CDCCC6004A7639 /* EmojiArtDocument.swift in Sources */,
+				EE8583272819A227001812FF /* ImageSaver.swift in Sources */,
+				EECE53B02807D616005D692B /* SwiftUIAnimationObserver.swift in Sources */,
 				EEB25F7227CCF972004A7639 /* EmojiArtModel.swift in Sources */,
 				EEB25F7527CDC810004A7639 /* EmojiArtModel.Background.swift in Sources */,
 				EE704EC227E323990027BB2C /* PaletteChooser.swift in Sources */,
@@ -271,13 +286,16 @@
 			files = (
 				EEBBCAB127F88CC7005801EA /* CompactableIntoMenu.swift in Sources */,
 				EE142AA727FC2EB1004371F2 /* macOS.swift in Sources */,
+				EECE53B12807D616005D692B /* SwiftUIAnimationObserver.swift in Sources */,
 				EEB25F8127CE1534004A7639 /* UtilityViews.swift in Sources */,
 				EE704EC027E18CAC0027BB2C /* PaletteStore.swift in Sources */,
 				EE429E6927E47DD6001398D9 /* PaletteEditor.swift in Sources */,
 				EEB25F6627CCF8D2004A7639 /* EmojiArtDocumentView.swift in Sources */,
+				EE8583282819A227001812FF /* ImageSaver.swift in Sources */,
 				EEB25F6427CCF8D2004A7639 /* EmojiArtApp.swift in Sources */,
 				EEB25F7E27CE1523004A7639 /* UtilityExtensions.swift in Sources */,
 				EEB25F7927CDCCC6004A7639 /* EmojiArtDocument.swift in Sources */,
+				EE85832528180BE5001812FF /* View+UIImage.swift in Sources */,
 				EEB25F7327CCF972004A7639 /* EmojiArtModel.swift in Sources */,
 				EEB25F7627CDC810004A7639 /* EmojiArtModel.Background.swift in Sources */,
 				EE704EC327E323990027BB2C /* PaletteChooser.swift in Sources */,
@@ -409,11 +427,15 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "The camera can be used to set the background of an EmojiArt document.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app need to save image to the photo library";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "The photo library can be used to set the background of an EmojiArt document.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -440,11 +462,15 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "The camera can be used to set the background of an EmojiArt document.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app need to save image to the photo library";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "The photo library can be used to set the background of an EmojiArt document.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -476,7 +502,11 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = macOS/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "The camera can be used to set the background of an EmojiArt document.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app need to save image to the photo library";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "The photo library can be used to set the background of an EmojiArt document.";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -506,7 +536,11 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = macOS/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "The camera can be used to set the background of an EmojiArt document.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app need to save image to the photo library";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "The photo library can be used to set the background of an EmojiArt document.";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
