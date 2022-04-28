@@ -10,6 +10,9 @@ import Foundation
 struct EmojiArtModel: Codable {
     var background = Background.blank
     var emojis = [Emoji]()
+    var scale: Double = 1
+    var xOffset: Int = 0
+    var yOffset: Int = 0
     
     private var uniqueEmojiId = 0
     

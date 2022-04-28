@@ -12,16 +12,18 @@ struct EmojiArtDocumentView: View {
     
     @Environment(\.undoManager) var undoManager
     
-    @SceneStorage("EmojiArtDocumentView.steadyStateZoomScale")
-    private var steadyStateZoomScale: CGFloat = 1
+    private var steadyStateZoomScale: CGFloat {
+        get { document.scale }
+    }
     @GestureState private var gestureZoomScale: (document: CGFloat, selectedEmojis: CGFloat) = (1, 1)
     
     private var zoomScale: CGFloat {
         steadyStateZoomScale * gestureZoomScale.document
     }
     
-    @SceneStorage("EmojiArtDocumentView.steadyStatePanOffset")
-    private var steadyStatePanOffset: CGSize = CGSize(width: 0, height: 0)
+    private var steadyStatePanOffset: CGSize {
+        get { document.panOffset }
+    }
     @GestureState private var gesturePanOffset: (documentOffset: CGSize, selectedEmojisOffset: CGSize, unselectedMovingEmoji: (emoji: EmojiArtModel.Emoji, offset: CGSize)?) =  (CGSize(width: 0, height: 0), CGSize(width: 0, height: 0), nil)
     
     private var panOffset: CGSize {
@@ -32,7 +34,9 @@ struct EmojiArtDocumentView: View {
     
     @ScaledMetric var defaultEmojiFontSize: CGFloat = 40
     
+    @available(iOS 15, *)
     @State var showAlertFailtoExport = false
+    @available(iOS 15, *)
     @State var showAlertSuccesstoExport = false
     
     @State private var backgroundPicker: BackgroundPickerType?
@@ -46,7 +50,27 @@ struct EmojiArtDocumentView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            if #available(iOS 15, *) {
             documentBody
+                .alert(
+                    LocalizedStringKey("Failed to export photo."),
+                    isPresented: $showAlertFailtoExport,
+                    actions: {
+                        Button(LocalizedStringKey("OK")) {
+                            showAlertFailtoExport = false
+                        }
+                    },
+                    message: {
+                        Text("Please confirm that this app has permission for adding image to photo library.")
+                    })
+                .alert(LocalizedStringKey("Success to export photo"), isPresented: $showAlertSuccesstoExport, actions: {
+                    Button(LocalizedStringKey("OK")) {
+                        showAlertSuccesstoExport = false
+                    }
+                })
+            } else {
+                documentBody
+            }
             PaletteChooser(emojiFontSize: defaultEmojiFontSize)
         }
     }
@@ -58,7 +82,6 @@ struct EmojiArtDocumentView: View {
                 OptionalImage(uiImage: document.backgroundImage)
                     .scaleEffect(zoomScale)
                     .position(convertFromEmojiCoordinates((0, 0), in: geometry))
-                .gesture(doubleTapToZoom(in: geometry.size).exclusively(before: singleTap()))
                 if document.backgroundImageFetchingStatus == .fetching {
                     ProgressView().scaleEffect(2)
                 } else {
@@ -71,6 +94,7 @@ struct EmojiArtDocumentView: View {
                     }
                 }
             }
+            .gesture(doubleTapToZoom(in: geometry.size).exclusively(before: singleTap()))
             .clipped()
             .onDrop(of: [.utf8PlainText, .url, .image], isTargeted: nil) { providers, location in
                 drop(providers: providers, at: location, in: geometry)
@@ -88,8 +112,9 @@ struct EmojiArtDocumentView: View {
                 }
             }
             .onReceive(document.$backgroundImage) { image in
-                if autoZoom {
+                if let image = image, autoZoom {
                     zoomToFit(image, in: geometry.size)
+                    autoZoom = false
                 }
             }
             .compactableToolbar {
@@ -137,9 +162,22 @@ struct EmojiArtDocumentView: View {
                         let image = documentBody.asUIImage(size: geometry.size)
                         ImageSaver.shared.writeToPhotoAlbum(image: image) { error in
                             if let _ = error {
-                                showAlertFailtoExport = true
+                                if #available(iOS 15, *) {
+                                    showAlertFailtoExport = true
+                                } else {
+                                    alertToShow = IdentifiableAlert(
+                                        title: LocalizedStringKey("Failed to export photo. "),
+                                        message: LocalizedStringKey("Please confirm that this app has permission for adding image to photo library.")
+                                    )
+                                }
                             } else {
-                                showAlertSuccesstoExport = true
+                                if #available(iOS 15, *) {
+                                    showAlertSuccesstoExport = true
+                                } else {
+                                    alertToShow = IdentifiableAlert(
+                                        title: LocalizedStringKey("Success to export photo")
+                                    )
+                                }
                             }
                         }
                     }
@@ -151,16 +189,6 @@ struct EmojiArtDocumentView: View {
                 case .library: PhotoLibrary { image in handlePickedBackgroundImage(image) }
                 }
             }
-            .alert(LocalizedStringKey("Failed to export photo"), isPresented: $showAlertFailtoExport, actions: {
-                Button(LocalizedStringKey("OK")) {
-                    showAlertFailtoExport = false
-                }
-            })
-            .alert(LocalizedStringKey("Success to export photo"), isPresented: $showAlertSuccesstoExport, actions: {
-                Button(LocalizedStringKey("OK")) {
-                    showAlertSuccesstoExport = false
-                }
-            })
         }
     }
     
@@ -251,8 +279,7 @@ struct EmojiArtDocumentView: View {
         if let image = image, image.size.width > 0, image.size.height > 0, size.width > 0, size.height > 0 {
             let hZoom = size.width / image.size.width
             let vZoom = size.height / image.size.height
-            steadyStatePanOffset = .zero
-            steadyStateZoomScale = min(hZoom, vZoom)
+            document.zoomToFit(min(hZoom, vZoom), undoManager: undoManager)
         }
     }
     
@@ -276,7 +303,7 @@ struct EmojiArtDocumentView: View {
             }
             .onEnded { gestureScaleAtEnd in
                 if selectedEmojis.isEmpty {
-                    steadyStateZoomScale *= gestureScaleAtEnd
+                    document.scaleCanvas(by: gestureScaleAtEnd, undoManager: undoManager)
                 } else {
                     for emoji in selectedEmojis {
                         document.scaleEmoji(emoji, by: gestureScaleAtEnd, undoManager: undoManager)
@@ -291,7 +318,7 @@ struct EmojiArtDocumentView: View {
                 gesturePanOffset.documentOffset = latestDragGestureValue.translation / zoomScale
             })
             .onEnded { finalDragGestureValue in
-                steadyStatePanOffset = steadyStatePanOffset + (finalDragGestureValue.translation / zoomScale)
+                document.moveCanvas(by: finalDragGestureValue.translation / zoomScale, undoManager: undoManager)
             }
     }
     

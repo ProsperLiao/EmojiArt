@@ -54,6 +54,18 @@ class EmojiArtDocument: ReferenceFileDocument {
     
     var background: EmojiArtModel.Background { emojiArt.background }
     var emojis: [EmojiArtModel.Emoji] { emojiArt.emojis }
+    var scale: CGFloat {
+        get { emojiArt.scale }
+        set { emojiArt.scale = newValue }
+    }
+    
+    var panOffset: CGSize {
+        get { CGSize(width: emojiArt.xOffset, height: emojiArt.yOffset) }
+        set {
+            emojiArt.xOffset = Int(newValue.width)
+            emojiArt.yOffset = Int(newValue.height)
+        }
+    }
     
     init() {
 //        if let url = AutoSave.url, let autosavedEmojiArt = try? EmojiArtModel(url: url) {
@@ -179,11 +191,30 @@ class EmojiArtDocument: ReferenceFileDocument {
         }
     }
     
+    func moveCanvas(by offset: CGSize, undoManager: UndoManager?) {
+        undoablyPerform(operation: "Move Canvas", with: undoManager) {
+            panOffset = panOffset + offset
+        }
+    }
+    
     func scaleEmoji(_ emoji: EmojiArtModel.Emoji, by scale: CGFloat, undoManager: UndoManager?) {
         undoablyPerform(operation: "Scale \(emoji)", with: undoManager) {
             if let index = emojis.index(matching: emoji) {
                 emojiArt.emojis[index].size = Int((CGFloat(emojiArt.emojis[index].size) * scale).rounded(.toNearestOrAwayFromZero))
             }
+        }
+    }
+    
+    func scaleCanvas(by scale: CGFloat, undoManager: UndoManager?) {
+        undoablyPerform(operation: "Scale Canvas", with: undoManager) {
+            emojiArt.scale *= scale
+        }
+    }
+    
+    func zoomToFit(_ scale: CGFloat, undoManager: UndoManager?) {
+        undoablyPerform(operation: "Zoom to Fit", with: undoManager) {
+            panOffset = .zero
+            self.scale = scale
         }
     }
     

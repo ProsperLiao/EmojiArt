@@ -58,14 +58,19 @@ struct IdentifiableAlert: Identifiable {
         self.alert = alert
     }
     
-    init(id: String, title: String, message: String) {
+    init(id: String, title: LocalizedStringKey, message: LocalizedStringKey) {
         self.id = id
         alert = { Alert(title: Text(title), message: Text(message), dismissButton: .default(Text("OK"))) }
     }
     
-    init(title: String, message: String) {
-        self.id = title + message
+    init(title: LocalizedStringKey, message: LocalizedStringKey) {
+        self.id = "\(title)\(message)"
         alert =  { Alert(title: Text(title), message: Text(message), dismissButton: .default(Text("OK"))) }
+    }
+    
+    init(title: LocalizedStringKey) {
+        self.id = "\(title)"
+        alert =  { Alert(title: Text(title), dismissButton: .default(Text("OK"))) }
     }
 }
 
