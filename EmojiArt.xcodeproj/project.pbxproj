@@ -22,6 +22,14 @@
 		EE85832528180BE5001812FF /* View+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85832328180BE5001812FF /* View+UIImage.swift */; };
 		EE8583272819A227001812FF /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8583262819A227001812FF /* ImageSaver.swift */; };
 		EE8583282819A227001812FF /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8583262819A227001812FF /* ImageSaver.swift */; };
+		EE94C84C281ACCEB00DDDBE9 /* View+PreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE94C84B281ACCEB00DDDBE9 /* View+PreferenceKey.swift */; };
+		EE94C84D281ACCEB00DDDBE9 /* View+PreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE94C84B281ACCEB00DDDBE9 /* View+PreferenceKey.swift */; };
+		EE94C84F281BD74A00DDDBE9 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = EE94C84E281BD74A00DDDBE9 /* Cartfile */; };
+		EE94C850281BD74A00DDDBE9 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = EE94C84E281BD74A00DDDBE9 /* Cartfile */; };
+		EE94C853281BEBD300DDDBE9 /* CropViewController.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE94C852281BEBD300DDDBE9 /* CropViewController.xcframework */; };
+		EE94C854281BEBD300DDDBE9 /* CropViewController.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EE94C852281BEBD300DDDBE9 /* CropViewController.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EE94C857281BEC9000DDDBE9 /* ImageCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE94C856281BEC9000DDDBE9 /* ImageCropper.swift */; };
+		EE94C858281BEC9000DDDBE9 /* ImageCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE94C856281BEC9000DDDBE9 /* ImageCropper.swift */; };
 		EEB25F6327CCF8D2004A7639 /* EmojiArtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB25F5327CCF8CF004A7639 /* EmojiArtApp.swift */; };
 		EEB25F6427CCF8D2004A7639 /* EmojiArtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB25F5327CCF8CF004A7639 /* EmojiArtApp.swift */; };
 		EEB25F6527CCF8D2004A7639 /* EmojiArtDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB25F5427CCF8CF004A7639 /* EmojiArtDocumentView.swift */; };
@@ -44,6 +52,20 @@
 		EECE53B12807D616005D692B /* SwiftUIAnimationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECE53AF2807D616005D692B /* SwiftUIAnimationObserver.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		EE94C855281BEBD300DDDBE9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EE94C854281BEBD300DDDBE9 /* CropViewController.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		EE142A9E27FB0DE3004371F2 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		EE142AA127FB5132004371F2 /* PhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
@@ -56,6 +78,10 @@
 		EE704EC127E323990027BB2C /* PaletteChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteChooser.swift; sourceTree = "<group>"; };
 		EE85832328180BE5001812FF /* View+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+UIImage.swift"; sourceTree = "<group>"; };
 		EE8583262819A227001812FF /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
+		EE94C84B281ACCEB00DDDBE9 /* View+PreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+PreferenceKey.swift"; sourceTree = "<group>"; };
+		EE94C84E281BD74A00DDDBE9 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		EE94C852281BEBD300DDDBE9 /* CropViewController.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = CropViewController.xcframework; path = iOS/Carthage/Build/CropViewController.xcframework; sourceTree = "<group>"; };
+		EE94C856281BEC9000DDDBE9 /* ImageCropper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCropper.swift; sourceTree = "<group>"; };
 		EEB25F5327CCF8CF004A7639 /* EmojiArtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArtApp.swift; sourceTree = "<group>"; };
 		EEB25F5427CCF8CF004A7639 /* EmojiArtDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArtDocumentView.swift; sourceTree = "<group>"; };
 		EEB25F5527CCF8D2004A7639 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -77,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE94C853281BEBD300DDDBE9 /* CropViewController.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,8 +125,18 @@
 				EE142AA127FB5132004371F2 /* PhotoLibrary.swift */,
 				EEBBCAAE27F2F735005801EA /* Info.plist */,
 				EE142AA827FC3156004371F2 /* iOS.swift */,
+				EE94C84E281BD74A00DDDBE9 /* Cartfile */,
+				EE94C856281BEC9000DDDBE9 /* ImageCropper.swift */,
 			);
 			path = iOS;
+			sourceTree = "<group>";
+		};
+		EE94C851281BEBD300DDDBE9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EE94C852281BEBD300DDDBE9 /* CropViewController.xcframework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		EEB25F4D27CCF8CF004A7639 = {
@@ -110,6 +147,7 @@
 				EE142AA527FC2ADB004371F2 /* iOS */,
 				EEB25F6127CCF8D2004A7639 /* macOS */,
 				EEB25F5B27CCF8D2004A7639 /* Products */,
+				EE94C851281BEBD300DDDBE9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -157,6 +195,7 @@
 				EEBBCAAF27F88CC7005801EA /* CompactableIntoMenu.swift */,
 				EECE53AF2807D616005D692B /* SwiftUIAnimationObserver.swift */,
 				EE85832328180BE5001812FF /* View+UIImage.swift */,
+				EE94C84B281ACCEB00DDDBE9 /* View+PreferenceKey.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -171,6 +210,7 @@
 				EEB25F5627CCF8D2004A7639 /* Sources */,
 				EEB25F5727CCF8D2004A7639 /* Frameworks */,
 				EEB25F5827CCF8D2004A7639 /* Resources */,
+				EE94C855281BEBD300DDDBE9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -241,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEB25F6727CCF8D2004A7639 /* Assets.xcassets in Resources */,
+				EE94C84F281BD74A00DDDBE9 /* Cartfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEB25F6827CCF8D2004A7639 /* Assets.xcassets in Resources */,
+				EE94C850281BD74A00DDDBE9 /* Cartfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +303,7 @@
 			files = (
 				EE85832428180BE5001812FF /* View+UIImage.swift in Sources */,
 				EEBBCAB027F88CC7005801EA /* CompactableIntoMenu.swift in Sources */,
+				EE94C84C281ACCEB00DDDBE9 /* View+PreferenceKey.swift in Sources */,
 				EEB25F8027CE1534004A7639 /* UtilityViews.swift in Sources */,
 				EE429E6B27E8213C001398D9 /* PaletteManager.swift in Sources */,
 				EE142A9F27FB0DE3004371F2 /* Camera.swift in Sources */,
@@ -273,6 +316,7 @@
 				EEB25F7D27CE1522004A7639 /* UtilityExtensions.swift in Sources */,
 				EEB25F7827CDCCC6004A7639 /* EmojiArtDocument.swift in Sources */,
 				EE8583272819A227001812FF /* ImageSaver.swift in Sources */,
+				EE94C857281BEC9000DDDBE9 /* ImageCropper.swift in Sources */,
 				EECE53B02807D616005D692B /* SwiftUIAnimationObserver.swift in Sources */,
 				EEB25F7227CCF972004A7639 /* EmojiArtModel.swift in Sources */,
 				EEB25F7527CDC810004A7639 /* EmojiArtModel.Background.swift in Sources */,
@@ -285,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEBBCAB127F88CC7005801EA /* CompactableIntoMenu.swift in Sources */,
+				EE94C858281BEC9000DDDBE9 /* ImageCropper.swift in Sources */,
 				EE142AA727FC2EB1004371F2 /* macOS.swift in Sources */,
 				EECE53B12807D616005D692B /* SwiftUIAnimationObserver.swift in Sources */,
 				EEB25F8127CE1534004A7639 /* UtilityViews.swift in Sources */,
@@ -295,6 +340,7 @@
 				EEB25F6427CCF8D2004A7639 /* EmojiArtApp.swift in Sources */,
 				EEB25F7E27CE1523004A7639 /* UtilityExtensions.swift in Sources */,
 				EEB25F7927CDCCC6004A7639 /* EmojiArtDocument.swift in Sources */,
+				EE94C84D281ACCEB00DDDBE9 /* View+PreferenceKey.swift in Sources */,
 				EE85832528180BE5001812FF /* View+UIImage.swift in Sources */,
 				EEB25F7327CCF972004A7639 /* EmojiArtModel.swift in Sources */,
 				EEB25F7627CDC810004A7639 /* EmojiArtModel.Background.swift in Sources */,

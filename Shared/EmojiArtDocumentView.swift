@@ -39,13 +39,14 @@ struct EmojiArtDocumentView: View {
     @available(iOS 15, *)
     @State var showAlertSuccesstoExport = false
     
-    @State private var backgroundPicker: BackgroundPickerType?
+    @State private var sheetController: SheetControllerType?
     
-    enum BackgroundPickerType: Identifiable {
-        var id: BackgroundPickerType { self }
+    enum SheetControllerType: Identifiable, Hashable {
+        var id: Self { self }
         
         case camera
         case library
+        case cropper(UIImage)
     }
     
     var body: some View {
@@ -150,43 +151,25 @@ struct EmojiArtDocumentView: View {
                 
                 if Camera.isAvailable {
                     AnimatedActionButton(title: "Take Photo", systemImage: "camera") {
-                        backgroundPicker = .camera
+                        sheetController = .camera
                     }
                 }
                 
                 if PhotoLibrary.isAvailable {
-                    AnimatedActionButton(title: "Search Photo", systemImage: "photo") {
-                        backgroundPicker = .library
+                    AnimatedActionButton(title: "Search Photo Album", systemImage: "photo") {
+                        sheetController = .library
                     }
                     AnimatedActionButton(title: "Export Image to Photo Album", systemImage: "photo.on.rectangle.angled") {
                         let image = documentBody.asUIImage(size: geometry.size)
-                        ImageSaver.shared.writeToPhotoAlbum(image: image) { error in
-                            if let _ = error {
-                                if #available(iOS 15, *) {
-                                    showAlertFailtoExport = true
-                                } else {
-                                    alertToShow = IdentifiableAlert(
-                                        title: LocalizedStringKey("Failed to export photo. "),
-                                        message: LocalizedStringKey("Please confirm that this app has permission for adding image to photo library.")
-                                    )
-                                }
-                            } else {
-                                if #available(iOS 15, *) {
-                                    showAlertSuccesstoExport = true
-                                } else {
-                                    alertToShow = IdentifiableAlert(
-                                        title: LocalizedStringKey("Success to export photo")
-                                    )
-                                }
-                            }
-                        }
+                        sheetController = .cropper(image)
                     }
                 }
             }
-            .sheet(item: $backgroundPicker) { pickerType in
+            .sheet(item: $sheetController) { pickerType in
                 switch pickerType {
                 case .camera: Camera { image in handlePickedBackgroundImage(image) }
                 case .library: PhotoLibrary { image in handlePickedBackgroundImage(image) }
+                case .cropper(let image): ImageCropper(image: image) { image in handleCroppedImage(image) }
                 }
             }
         }
@@ -377,7 +360,33 @@ struct EmojiArtDocumentView: View {
             autoZoom = true
             document.setBackground(.imageData(data), undoManager: undoManager)
         }
-        backgroundPicker = nil
+        sheetController = nil
+    }
+                                                    
+    private func handleCroppedImage(_ image: UIImage?) {
+        if let image = image {
+            ImageSaver.shared.writeToPhotoAlbum(image: image) { error in
+                if let _ = error {
+                    if #available(iOS 15, *) {
+                        showAlertFailtoExport = true
+                    } else {
+                        alertToShow = IdentifiableAlert(
+                            title: LocalizedStringKey("Failed to export photo. "),
+                            message: LocalizedStringKey("Please confirm that this app has permission for adding image to photo library.")
+                        )
+                    }
+                } else {
+                    if #available(iOS 15, *) {
+                        showAlertSuccesstoExport = true
+                    } else {
+                        alertToShow = IdentifiableAlert(
+                            title: LocalizedStringKey("Success to export photo")
+                        )
+                    }
+                }
+            }
+        }
+        sheetController = nil
     }
     
 //    struct Constants {

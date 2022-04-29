@@ -23,9 +23,7 @@ extension View {
 
 extension UIView {
     func asImage() -> UIImage {
-        let format = UIGraphicsImageRendererFormat()
-        format.scale = UIScreen.main.scale
-        let renderer = UIGraphicsImageRenderer(size: self.layer.frame.size, format: format)
+        let renderer = UIGraphicsImageRenderer(size: self.layer.bounds.size)
         return renderer.image { _ in
             self.drawHierarchy(in: self.layer.bounds, afterScreenUpdates: true)
         }
