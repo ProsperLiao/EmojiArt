@@ -135,14 +135,18 @@ struct EmojiArtDocumentView: View {
                 #endif
                 
                 if !selectedEmojis.isEmpty {
-                    AnimatedActionButton(title: LocalizedStringKey("Delete Selected"), systemImage: "trash") {
+                    let button = AnimatedActionButton(title: LocalizedStringKey("Delete Selected"), systemImage: "trash") {
                         for emoji in selectedEmojis {
                             document.removeEmoji(emoji, undoManager: undoManager)
                         }
                         selectedEmojis = []
                     }
                     .font(.system(size: 20))
-                    .tint(.red)
+                    if #available(iOS 15, *) {
+                        button.tint(.red)
+                    } else {
+                        button
+                    }
                 }
                 
                 AnimatedActionButton(title: LocalizedStringKey("Paste Background"), systemImage: "doc.on.clipboard") {
