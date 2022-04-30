@@ -43,20 +43,20 @@ struct PaletteChooser: View {
     
     @ViewBuilder
     var contextMenu: some View {
-        AnimatedActionButton(title: "Edit", systemImage: "pencil") {
+        AnimatedActionButton(title: LocalizedStringKey("Edit"), systemImage: "pencil") {
 //            isEditing = true
             paletteToEdit = store.palette(at: chosenPaletteIndex)
         }
-        AnimatedActionButton(title: "New", systemImage: "plus") {
+        AnimatedActionButton(title: LocalizedStringKey("New"), systemImage: "plus") {
             store.insertPalette(named: "New", emojis: "", at: chosenPaletteIndex)
 //            isEditing = true
             paletteToEdit = store.palette(at: chosenPaletteIndex)
         }
-        AnimatedActionButton(title: "Delete", systemImage: "minus.circle") {
+        AnimatedActionButton(title: LocalizedStringKey("Delete"), systemImage: "minus.circle") {
             chosenPaletteIndex = store.removePalette(at: chosenPaletteIndex)
         }
         #if os(iOS)
-        AnimatedActionButton(title: "Manager", systemImage: "slider.vertical.3") {
+        AnimatedActionButton(title: LocalizedStringKey("Manager"), systemImage: "slider.vertical.3") {
             isManaging = true
         }
         #endif
@@ -74,7 +74,7 @@ struct PaletteChooser: View {
                 }
             }
         } label: {
-            Label("Go To", systemImage: "text.insert")
+            Label(LocalizedStringKey("Go To"), systemImage: "text.insert")
         }
     }
     

@@ -1,0 +1,12 @@
+/* (No Comment) */
+"EmojiArt" = "涂鸦Emoji";
+
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "此App需要使用相机拍照，以设置画布背景.";
+
+/* Privacy - Photo Library Additions Usage Description */
+"NSPhotoLibraryAddUsageDescription" = "此App需要导出图片到手机相册.";
+
+/* Privacy - Photo Library Usage Description */
+"NSPhotoLibraryUsageDescription" = "此App需要从手机相册中选择图片以设置画布背景.";
+

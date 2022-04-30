@@ -33,7 +33,7 @@ struct PaletteManager: View {
                     store.palettes.move(fromOffsets: indexSet, toOffset: newOffset)
                 }
             }
-            .navigationTitle("Manage Palettes")
+            .navigationTitle(LocalizedStringKey("Manage Palettes"))
             .navigationBarTitleDisplayMode(.inline)
             .dismissable { presentationMode.wrappedValue.dismiss() }
             .toolbar {

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="iOS/en.lproj/InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.3.1" build-num="13E500a"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>EmojiArt</source>
+        <target>EmojiArt</target>
+        <note>Bundle name</note>
+      </trans-unit>
+      <trans-unit id="EmojiArt" xml:space="preserve">
+        <source>EmojiArt</source>
+        <target>EmojiArt</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
+        <source>The camera can be used to set the background of an EmojiArt document.</source>
+        <target>The camera can be used to set the background of an EmojiArt document.</target>
+        <note>Privacy - Camera Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSPhotoLibraryAddUsageDescription" xml:space="preserve">
+        <source>This app need to save image to the photo library</source>
+        <target>This app need to save image to the photo library</target>
+        <note>Privacy - Photo Library Additions Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSPhotoLibraryUsageDescription" xml:space="preserve">
+        <source>The photo library can be used to set the background of an EmojiArt document.</source>
+        <target>The photo library can be used to set the background of an EmojiArt document.</target>
+        <note>Privacy - Photo Library Usage Description</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="iOS/en.lproj/Localizable.strings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.3.1" build-num="13E500a"/>
+    </header>
+    <body>
+      <trans-unit id="Add Emojis" xml:space="preserve">
+        <source>Add Emojis</source>
+        <target>Add Emojis</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Background Image Fetch" xml:space="preserve">
+        <source>Background Image Fetch</source>
+        <target>Background Image Fetch</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Close" xml:space="preserve">
+        <source>Close</source>
+        <target>Close</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Couldn't load image from %@." xml:space="preserve">
+        <source>Couldn't load image from %@.</source>
+        <target>Couldn't load image from %@.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete" xml:space="preserve">
+        <source>Delete</source>
+        <target>Delete</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete Selected" xml:space="preserve">
+        <source>Delete Selected</source>
+        <target>Delete Selected</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Edit" xml:space="preserve">
+        <source>Edit</source>
+        <target>Edit</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Edit %@" xml:space="preserve">
+        <source>Edit %@</source>
+        <target>Edit %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Export Image to Photo Album" xml:space="preserve">
+        <source>Export Image to Photo Album</source>
+        <target>Export Image to Photo Album</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Failed to export photo." xml:space="preserve">
+        <source>Failed to export photo.</source>
+        <target>Failed to export photo.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Failed to export photo. " xml:space="preserve">
+        <source>Failed to export photo. </source>
+        <target>Failed to export photo. </target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Go To" xml:space="preserve">
+        <source>Go To</source>
+        <target>Go To</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Manage Palettes" xml:space="preserve">
+        <source>Manage Palettes</source>
+        <target>Manage Palettes</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Manager" xml:space="preserve">
+        <source>Manager</source>
+        <target>Manager</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Name" xml:space="preserve">
+        <source>Name</source>
+        <target>Name</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="New" xml:space="preserve">
+        <source>New</source>
+        <target>New</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="OK" xml:space="preserve">
+        <source>OK</source>
+        <target>OK</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Paste Background" xml:space="preserve">
+        <source>Paste Background</source>
+        <target>Paste Background</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Please confirm that this app has permission for adding image to photo library." xml:space="preserve">
+        <source>Please confirm that this app has permission for adding image to photo library.</source>
+        <target>Please confirm that this app has permission for adding image to photo library.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Remove Emoji" xml:space="preserve">
+        <source>Remove Emoji</source>
+        <target>Remove Emoji</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Search Photo Album" xml:space="preserve">
+        <source>Search Photo Album</source>
+        <target>Search Photo Album</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Success to export photo" xml:space="preserve">
+        <source>Success to export photo</source>
+        <target>Success to export photo</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Take Photo" xml:space="preserve">
+        <source>Take Photo</source>
+        <target>Take Photo</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="There is no image currently on the pasteboard" xml:space="preserve">
+        <source>There is no image currently on the pasteboard</source>
+        <target>There is no image currently on the pasteboard</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

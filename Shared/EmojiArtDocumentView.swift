@@ -122,12 +122,12 @@ struct EmojiArtDocumentView: View {
                 #if os(iOS)
                 if let undoManager = undoManager {
                     if undoManager.canUndo {
-                        AnimatedActionButton(title: undoManager.undoMenuItemTitle, systemImage: "arrow.uturn.backward") {
+                        AnimatedActionButton(title: undoManager.undoMenuItemTitle.replacingOccurrences(of: "Undo", with: "撤消"), systemImage: "arrow.uturn.backward") {
                             undoManager.undo()
                         }
                     }
                     if undoManager.canRedo {
-                        AnimatedActionButton(title: undoManager.redoMenuItemTitle, systemImage: "arrow.uturn.forward") {
+                        AnimatedActionButton(title: undoManager.redoMenuItemTitle.replacingOccurrences(of: "Redo", with: "重做"), systemImage: "arrow.uturn.forward") {
                             undoManager.redo()
                         }
                     }
@@ -135,7 +135,7 @@ struct EmojiArtDocumentView: View {
                 #endif
                 
                 if !selectedEmojis.isEmpty {
-                    AnimatedActionButton(title: "Delete Selected", systemImage: "trash") {
+                    AnimatedActionButton(title: LocalizedStringKey("Delete Selected"), systemImage: "trash") {
                         for emoji in selectedEmojis {
                             document.removeEmoji(emoji, undoManager: undoManager)
                         }
@@ -145,21 +145,21 @@ struct EmojiArtDocumentView: View {
                     .tint(.red)
                 }
                 
-                AnimatedActionButton(title: "Paste Background", systemImage: "doc.on.clipboard") {
+                AnimatedActionButton(title: LocalizedStringKey("Paste Background"), systemImage: "doc.on.clipboard") {
                     pasteBackground()
                 }
                 
                 if Camera.isAvailable {
-                    AnimatedActionButton(title: "Take Photo", systemImage: "camera") {
+                    AnimatedActionButton(title: LocalizedStringKey("Take Photo"), systemImage: "camera") {
                         sheetController = .camera
                     }
                 }
                 
                 if PhotoLibrary.isAvailable {
-                    AnimatedActionButton(title: "Search Photo Album", systemImage: "photo") {
+                    AnimatedActionButton(title: LocalizedStringKey("Search Photo Album"), systemImage: "photo") {
                         sheetController = .library
                     }
-                    AnimatedActionButton(title: "Export Image to Photo Album", systemImage: "photo.on.rectangle.angled") {
+                    AnimatedActionButton(title: LocalizedStringKey("Export Image to Photo Album"), systemImage: "photo.on.rectangle.angled") {
                         let image = documentBody.asUIImage(size: geometry.size)
                         sheetController = .cropper(image)
                     }
@@ -349,8 +349,8 @@ struct EmojiArtDocumentView: View {
             document.setBackground(.url(url), undoManager: undoManager)
         } else {
             alertToShow = IdentifiableAlert(
-                title: "Paste Background",
-                message: "There is no image currently on the pasteboard"
+                title: LocalizedStringKey("Paste Background"),
+                message: LocalizedStringKey("There is no image currently on the pasteboard")
             )
         }
     }

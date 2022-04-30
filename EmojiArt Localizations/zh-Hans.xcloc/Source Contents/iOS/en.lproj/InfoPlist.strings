@@ -1,0 +1,10 @@
+/* Bundle name */
+"CFBundleName" = "EmojiArt";
+"EmojiArt" = "EmojiArt";
+"EmojiArt" = "EmojiArt";
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "The camera can be used to set the background of an EmojiArt document.";
+/* Privacy - Photo Library Additions Usage Description */
+"NSPhotoLibraryAddUsageDescription" = "This app need to save image to the photo library";
+/* Privacy - Photo Library Usage Description */
+"NSPhotoLibraryUsageDescription" = "The photo library can be used to set the background of an EmojiArt document.";

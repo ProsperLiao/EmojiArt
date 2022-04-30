@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="iOS/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="zh-Hans">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.3.1" build-num="13E500a"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>EmojiArt</source>
+        <note>Bundle name</note>
+      </trans-unit>
+      <trans-unit id="EmojiArt" xml:space="preserve">
+        <source>EmojiArt</source>
+        <target>涂鸦Emoji</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
+        <source>The camera can be used to set the background of an EmojiArt document.</source>
+        <target>此App需要使用相机拍照，以设置画布背景.</target>
+        <note>Privacy - Camera Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSPhotoLibraryAddUsageDescription" xml:space="preserve">
+        <source>This app need to save image to the photo library</source>
+        <target>此App需要导出图片到手机相册.</target>
+        <note>Privacy - Photo Library Additions Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSPhotoLibraryUsageDescription" xml:space="preserve">
+        <source>The photo library can be used to set the background of an EmojiArt document.</source>
+        <target>此App需要从手机相册中选择图片以设置画布背景.</target>
+        <note>Privacy - Photo Library Usage Description</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="iOS/en.lproj/Localizable.strings" datatype="plaintext" source-language="en" target-language="zh-Hans">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.3.1" build-num="13E500a"/>
+    </header>
+    <body>
+      <trans-unit id="Add Emojis" xml:space="preserve">
+        <source>Add Emojis</source>
+        <target>添加 Emojis</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Background Image Fetch" xml:space="preserve">
+        <source>Background Image Fetch</source>
+        <target>获取背景图片</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Close" xml:space="preserve">
+        <source>Close</source>
+        <target>关闭</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Couldn't load image from %@." xml:space="preserve">
+        <source>Couldn't load image from %@.</source>
+        <target>无法从 %@ 加载图片.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete" xml:space="preserve">
+        <source>Delete</source>
+        <target>删除</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete Selected" xml:space="preserve">
+        <source>Delete Selected</source>
+        <target>删除选中</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Edit" xml:space="preserve">
+        <source>Edit</source>
+        <target>编辑</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Edit %@" xml:space="preserve">
+        <source>Edit %@</source>
+        <target>编辑 %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Export Image to Photo Album" xml:space="preserve">
+        <source>Export Image to Photo Album</source>
+        <target>导出图片到手机相册</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Failed to export photo." xml:space="preserve">
+        <source>Failed to export photo.</source>
+        <target>导出图片失败.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Failed to export photo. " xml:space="preserve">
+        <source>Failed to export photo. </source>
+        <target>导出图片失败.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Go To" xml:space="preserve">
+        <source>Go To</source>
+        <target>跳转至</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Manage Palettes" xml:space="preserve">
+        <source>Manage Palettes</source>
+        <target>管理调色板</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Manager" xml:space="preserve">
+        <source>Manager</source>
+        <target>管理器</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Name" xml:space="preserve">
+        <source>Name</source>
+        <target>名称</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="New" xml:space="preserve">
+        <source>New</source>
+        <target>新建</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="OK" xml:space="preserve">
+        <source>OK</source>
+        <target>OK</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Paste Background" xml:space="preserve">
+        <source>Paste Background</source>
+        <target>粘贴背景</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Please confirm that this app has permission for adding image to photo library." xml:space="preserve">
+        <source>Please confirm that this app has permission for adding image to photo library.</source>
+        <target>请确认此App获得添加图片至相册的权限.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Remove Emoji" xml:space="preserve">
+        <source>Remove Emoji</source>
+        <target>移除 Emoji</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Search Photo Album" xml:space="preserve">
+        <source>Search Photo Album</source>
+        <target>查找相册</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Success to export photo" xml:space="preserve">
+        <source>Success to export photo</source>
+        <target>成功导出图片</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Take Photo" xml:space="preserve">
+        <source>Take Photo</source>
+        <target>拍照</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="There is no image currently on the pasteboard" xml:space="preserve">
+        <source>There is no image currently on the pasteboard</source>
+        <target>当前剪粘板不存在图片.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -21,9 +21,28 @@ struct OptionalImage: View {
 
 // 语法糖，方便创建动画化行为的按钮
 struct AnimatedActionButton: View {
+    var titleLocalizedStringKey: LocalizedStringKey? = nil
     var title: String? = nil
     var systemImage: String? = nil
     let action: () -> Void
+    
+    init(title: LocalizedStringKey?, systemImage: String? = nil, action: @escaping () -> Void) {
+        self.titleLocalizedStringKey = title
+        self.systemImage = systemImage
+        self.action = action
+    }
+    
+    init(title: String?, systemImage: String? = nil, action: @escaping () -> Void) {
+        self.title = title
+        self.systemImage = systemImage
+        self.action = action
+    }
+    
+    init(systemImage: String?, action: @escaping () -> Void) {
+        self.title = nil
+        self.systemImage = systemImage
+        self.action = action
+    }
     
     var body: some View {
         Button {
@@ -31,8 +50,14 @@ struct AnimatedActionButton: View {
                 action()
             }
         } label: {
-            if title != nil && systemImage != nil {
-                Label(title!, systemImage: systemImage!)
+            if (titleLocalizedStringKey != nil || title != nil) && systemImage != nil {
+                if titleLocalizedStringKey != nil {
+                    Label(titleLocalizedStringKey!, systemImage: systemImage!)
+                } else {
+                    Label(title!, systemImage: systemImage!)
+                }
+            } else if titleLocalizedStringKey != nil {
+                Text(titleLocalizedStringKey!)
             } else if title != nil {
                 Text(title!)
             } else if systemImage != nil {

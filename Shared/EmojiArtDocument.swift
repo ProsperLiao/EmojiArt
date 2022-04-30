@@ -165,25 +165,25 @@ class EmojiArtDocument: ReferenceFileDocument {
     // MARK: - Intent(s)
     
     func setBackground(_ background: EmojiArtModel.Background, undoManager: UndoManager?) {
-        undoablyPerform(operation: "Set Background", with: undoManager) {
+        undoablyPerform(operation: "设置背景", with: undoManager) {
             emojiArt.background = background
         }
     }
     
     func addEmoji(_ emoji: String, at location: (x: Int, y: Int), size: CGFloat, undoManager: UndoManager?) {
-        undoablyPerform(operation: "Add \(emoji)", with: undoManager) {
+        undoablyPerform(operation: "添加 \(emoji)", with: undoManager) {
             emojiArt.addEmoji(emoji, at: location, size: Int(size))
         }
     }
     
     func removeEmoji(_ emoji: EmojiArtModel.Emoji, undoManager: UndoManager?) {
-        undoablyPerform(operation: "Remove \(emoji.text)", with: undoManager) {
+        undoablyPerform(operation: "移除 \(emoji.text)", with: undoManager) {
             emojiArt.removeEmoji(emoji)
         }
     }
     
     func moveEmoji(_ emoji: EmojiArtModel.Emoji, by offset: CGSize, undoManager: UndoManager?) {
-        undoablyPerform(operation: "Move \(emoji.text)", with: undoManager) {
+        undoablyPerform(operation: "移动 \(emoji.text)", with: undoManager) {
             if let index = emojis.index(matching: emoji) {
                 emojiArt.emojis[index].x += Int(offset.width)
                 emojiArt.emojis[index].y += Int(offset.height)
@@ -192,13 +192,13 @@ class EmojiArtDocument: ReferenceFileDocument {
     }
     
     func moveCanvas(by offset: CGSize, undoManager: UndoManager?) {
-        undoablyPerform(operation: "Move Canvas", with: undoManager) {
+        undoablyPerform(operation: "移动画布", with: undoManager) {
             panOffset = panOffset + offset
         }
     }
     
     func scaleEmoji(_ emoji: EmojiArtModel.Emoji, by scale: CGFloat, undoManager: UndoManager?) {
-        undoablyPerform(operation: "Scale \(emoji)", with: undoManager) {
+        undoablyPerform(operation: "缩放 \(emoji)", with: undoManager) {
             if let index = emojis.index(matching: emoji) {
                 emojiArt.emojis[index].size = Int((CGFloat(emojiArt.emojis[index].size) * scale).rounded(.toNearestOrAwayFromZero))
             }
@@ -206,13 +206,13 @@ class EmojiArtDocument: ReferenceFileDocument {
     }
     
     func scaleCanvas(by scale: CGFloat, undoManager: UndoManager?) {
-        undoablyPerform(operation: "Scale Canvas", with: undoManager) {
+        undoablyPerform(operation: "缩放画布", with: undoManager) {
             emojiArt.scale *= scale
         }
     }
     
     func zoomToFit(_ scale: CGFloat, undoManager: UndoManager?) {
-        undoablyPerform(operation: "Zoom to Fit", with: undoManager) {
+        undoablyPerform(operation: "缩放至合适", with: undoManager) {
             panOffset = .zero
             self.scale = scale
         }

@@ -1,0 +1,72 @@
+/* No comment provided by engineer. */
+"Add Emojis" = "添加 Emojis";
+
+/* No comment provided by engineer. */
+"Background Image Fetch" = "获取背景图片";
+
+/* No comment provided by engineer. */
+"Close" = "关闭";
+
+/* No comment provided by engineer. */
+"Couldn't load image from %@." = "无法从 %@ 加载图片.";
+
+/* No comment provided by engineer. */
+"Delete" = "删除";
+
+/* No comment provided by engineer. */
+"Delete Selected" = "删除选中";
+
+/* No comment provided by engineer. */
+"Edit" = "编辑";
+
+/* No comment provided by engineer. */
+"Edit %@" = "编辑 %@";
+
+/* No comment provided by engineer. */
+"Export Image to Photo Album" = "导出图片到手机相册";
+
+/* No comment provided by engineer. */
+"Failed to export photo." = "导出图片失败.";
+
+/* No comment provided by engineer. */
+"Failed to export photo. " = "导出图片失败.";
+
+/* No comment provided by engineer. */
+"Go To" = "跳转至";
+
+/* No comment provided by engineer. */
+"Manage Palettes" = "管理调色板";
+
+/* No comment provided by engineer. */
+"Manager" = "管理器";
+
+/* No comment provided by engineer. */
+"Name" = "名称";
+
+/* No comment provided by engineer. */
+"New" = "新建";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"Paste Background" = "粘贴背景";
+
+/* No comment provided by engineer. */
+"Please confirm that this app has permission for adding image to photo library." = "请确认此App获得添加图片至相册的权限.";
+
+/* No comment provided by engineer. */
+"Remove Emoji" = "移除 Emoji";
+
+/* No comment provided by engineer. */
+"Search Photo Album" = "查找相册";
+
+/* No comment provided by engineer. */
+"Success to export photo" = "成功导出图片";
+
+/* No comment provided by engineer. */
+"Take Photo" = "拍照";
+
+/* No comment provided by engineer. */
+"There is no image currently on the pasteboard" = "当前剪粘板不存在图片.";
+
